@@ -2,31 +2,33 @@ const express = require('express');
 const config = require('config');
 const { MongoClient } = require('mongodb');
 const bodyParser = require('body-parser');
-const fetch = require('node-fetch');
 
 const app = express();
+
+const { logError } = require('./utils');
 
 app.use(express.static(`${__dirname}/public`));
 app.use(bodyParser.json());
 
 (async () => {
-    const client = await MongoClient.connect(config.get('MongoURI'), { useNewUrlParser: true });
+    let client;
+    try {
+        client = await MongoClient.connect(config.get('MongoURI'), { useNewUrlParser: true });
+    } catch (err) {
+        logError('Error connecting to MongoDB Altas Database', err);
+        return;
+    }
     const db = client.db('images');
     const urls = db.collection('urls');
 
-    //const res = await fetch(`https://api.unsplash.com/photos/?client_id=${config.get('unsplash_client_id')}`)
-    //const data = await res.json()
-    //urls.insertMany(data.map((item) => ({ url: item.urls.small })));
-
-    app.get('/', (req, res) => {
-        res.sendFile(`${__dirname}/pages/index.html`);
-    });
+    app.get('/', (req, res) => res.sendFile(`${__dirname}/pages/index.html`));
 
     app.get('/api/getRandomImageUrl', async (req, res) => {
         try {
             const url = await urls.aggregate([ { $sample: { size: 1 } } ]).toArray();
             res.status(200).json({ success: true, url: url[0].url });
         } catch (err) {
+            logError('Error retrieving document from MongoDB Atlas Database', err);
             res.status(500).json({ success: false, reason: 'MongoDB Connect Fail' });
         }
     });
@@ -42,7 +44,8 @@ app.use(bodyParser.json());
             });
             res.status(200).json({ success: true });
         } catch (err) {
-            res.status(500).json({ success: false, reason: 'MongoDB Connect Fail', err });
+            logError('Error inserting document into MongoDB Atlas Database', err);
+            res.status(500).json({ success: false, reason: 'MongoDB Connect Fail' });
         }
     });
 
