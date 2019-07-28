@@ -1,3 +1,4 @@
 {
-    "MongoURI": "mongodb+srv://pavement:Pe6eUmS1Z0jwiJaF@infinite-scroll-image-gallery-h6nnx.mongodb.net/test?retryWrites=true&w=majority"
+    "MongoURI": "mongodb+srv://pavement:Pe6eUmS1Z0jwiJaF@infinite-scroll-image-gallery-h6nnx.mongodb.net/test?retryWrites=true&w=majority",
+    "unsplash_client_id": "4c5663608c7172f913ea5d96ade089bc5f2c3ebc11111d3598fa0823240303ea"
 }

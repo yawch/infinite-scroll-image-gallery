@@ -14,7 +14,7 @@ app.use(bodyParser.json());
     const db = client.db('images');
     const urls = db.collection('urls');
 
-    //const res = await fetch('https://api.unsplash.com/photos/?client_id=4c5663608c7172f913ea5d96ade089bc5f2c3ebc11111d3598fa0823240303ea')
+    //const res = await fetch(`https://api.unsplash.com/photos/?client_id=${config.get('unsplash_client_id')}`)
     //const data = await res.json()
     //urls.insertMany(data.map((item) => ({ url: item.urls.small })));
 
