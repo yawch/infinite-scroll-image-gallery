@@ -17,15 +17,13 @@ const expandImg = (src) => {
     return renderImage = (url) => {
         const img = document.createElement('img');
         img.src = url;
-        const li = document.createElement('li');
-        li.appendChild(img);
-        document.querySelectorAll('main ul')[i++].appendChild(li);
-        if (i === 3) i = 0;
+        document.querySelectorAll('main div')[i++].appendChild(img);
+        if (i === 4) i = 0;
     }
 })();
 
-document.querySelectorAll('main ul').forEach((ul) => {
-    ul.addEventListener('click', (e) => {
+document.querySelectorAll('main div').forEach((div) => {
+    div.addEventListener('click', (e) => {
         if (e.target.tagName === 'IMG') {
             expandImg(e.target.getAttribute('src'));
         }

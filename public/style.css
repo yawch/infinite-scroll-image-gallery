@@ -44,36 +44,32 @@ body {
 }
 main {
     display: grid;
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: 25% 25% 25% 25%;
+    width: calc(100% - 25.5px);
+    grid-column-gap: 7px;
 }
-main ul {
-    padding: 5px;
-    margin: 0;
-}
-main ul li {
-    list-style-type: none;
-    cursor: pointer;
-}
-main ul li img {
+main div img {
     width: 100%;
+    border: 1px solid #FFF;
+    margin: 1.25px;
+    cursor: pointer;
     transition: filter 0.3s ease-in-out;
 }
-main ul li:hover img {
+main div img:hover {
     filter: brightness(70%);
 }
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 1000px) {
     main {
-        grid-template-columns: 50% 50%;
+        grid-template-columns: 33% 33% 33%;
+        width: calc(100% - 9.5px);
+        grid-column-gap: 5px;
     }
-    main ul {
-        padding: 3px;
+    main div img {
+        margin: 0.1px;
     }
 }
 @media only screen and (max-width: 500px) {
     main {
         grid-template-columns: 100%;
-    }
-    main ul {
-        padding: 0;
     }
 }

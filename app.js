@@ -7,7 +7,7 @@ const app = express();
 
 const { logError } = require('./utils');
 
-app.use(express.static(`${__dirname}/public`));
+app.use(express.static('public'));
 app.use(bodyParser.json());
 
 (async () => {
@@ -20,8 +20,6 @@ app.use(bodyParser.json());
     }
     const db = client.db('images');
     const urls = db.collection('urls');
-
-    app.get('/', (req, res) => res.sendFile(`${__dirname}/pages/index.html`));
 
     app.get('/api/getRandomImageUrl', async (req, res) => {
         try {
